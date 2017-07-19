@@ -25,9 +25,6 @@ sub define_mothers
 		build_panel1b_mother($s);
 		build_panel2_mother($s);
 	}
-
-	make_pb();
-
 }
 
 sub build_panel1a_mother
@@ -144,7 +141,7 @@ sub build_panel1b_counters
 		$detector{"description"}  = "paddle $n - Panel 1B - Sector $sector";
 		$detector{"pos"}          = panel_1b_counter_pos($n);
 		$detector{"rotation"}     = "0*deg 0*deg 0*deg";
-		$detector{"color"}        = "111ffaa";
+		$detector{"color"}        = "11ffaa";
 		$detector{"type"}         = "Box";
 		$detector{"dimensions"}   = panel_1b_counter_dims($n);
 		$detector{"material"}     = "scintillator";
@@ -207,3 +204,5 @@ sub make_pb
 	print_det(\%configuration, \%detector);
     }
 }
+
+1;

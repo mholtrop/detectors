@@ -320,7 +320,7 @@ sub build_check_ell_cheeseform
 		$detector{"color"}       = "110088";
 		$detector{"type"}        = "Tube";
 		$detector{"dimensions"}  = "0*m 5*m 0.6*m $starttheta_r*deg $tubespan*deg";
-		$detector{"material"}    = "Air";
+		$detector{"material"}    = "G4_AIR";
 		print_det(\%configuration, \%detector);
 
 		%detector = init_det();
@@ -331,7 +331,7 @@ sub build_check_ell_cheeseform
 		$detector{"color"}       = "880011";
 		$detector{"type"}        = "Tube";
 		$detector{"dimensions"}  = "0*m 5*m 0.6*m $starttheta_l*deg $tubespan*deg";
-		$detector{"material"}    = "Air";
+		$detector{"material"}    = "G4_AIR";
 		print_det(\%configuration, \%detector);
 	}
 }
@@ -402,7 +402,6 @@ sub build_ell_mirrors
 			$detector{"visible"}     = 1; #nate
 			$detector{"sensitivity"}    = "mirror: ltcc_AlMgF2";
 			$detector{"hit_type"}       = "mirror";
-			$detector{"identifiers"}    = "sector manual $s type manual 1 side manual 1 segment manual $n";
 			print_det(\%configuration, \%detector);
 			
 			# mirror LEFT
@@ -421,7 +420,6 @@ sub build_ell_mirrors
 			$detector{"visible"}     = 1; 
 			$detector{"sensitivity"}    = "mirror: ltcc_AlMgF2";
 			$detector{"hit_type"}       = "mirror";
-			$detector{"identifiers"}    = "sector manual $s type manual 1 side manual 2 segment manual $n";
 			print_det(\%configuration, \%detector);
 		}
 	}

@@ -1,6 +1,5 @@
 #!/usr/bin/perl -w
 
-
 use strict;
 use lib ("$ENV{GEMC}/api/perl");
 use utils;
@@ -33,10 +32,11 @@ if( scalar @ARGV != 1)
 # Loading configuration file and paramters
 our %configuration = load_configuration($ARGV[0]);
 
-
 # Global pars - these should be read by the load_parameters from file or DB
 our %parameters = get_parameters(%configuration);
 
+my $javaCadDir = "javacad";
+system(join(' ', 'groovy -cp "../*" factory.groovy', $javaCadDir));
 
 # materials
 require "./materials.pl";
@@ -50,26 +50,36 @@ require "./hit.pl";
 # sensitive geometry
 require "./geometry.pl";
 
+# java geometry
+require "./geometry_java.pl";
 
 # all the scripts must be run for every configuration
-my @allConfs = ("original");
+my @allConfs = ("original", "cad", "java");
+
+# bank definitions
+define_bank();
 
 foreach my $conf ( @allConfs )
 {
 	$configuration{"variation"} = $conf ;
-	
+
+	if($configuration{"variation"} eq "java")
+	{
+		our @volumes = get_volumes(%configuration);
+
+		coatjava::makeCTOF($javaCadDir);
+	}
+	else
+	{
+		# geometry
+		makeCTOF();
+	}
+
 	# materials
 	materials();
 	
 	# hits
 	define_hit();
-	
-	# bank definitions
-	define_bank();
-	
-	# geometry
-	makeCTOF();
-	
 }
 
 

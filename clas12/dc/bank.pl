@@ -23,9 +23,9 @@ sub define_bank
 	# uploading the hit definition
 	insert_bank_variable(\%configuration, $bankname, "bankid", $bankId, "Di", "$bankname bank ID");
 	insert_bank_variable(\%configuration, $bankname, "sector",      1,  "Di", "sector index");
-	insert_bank_variable(\%configuration, $bankname, "superlayer",  2,  "Di", "superlayer index");
-	insert_bank_variable(\%configuration, $bankname, "layer",       3,  "Di", "layer index");
-	insert_bank_variable(\%configuration, $bankname, "wire",        4,  "Di", "wire index");
+	insert_bank_variable(\%configuration, $bankname, "layer",       2,  "Di", "layer index");
+	insert_bank_variable(\%configuration, $bankname, "wire",        3,  "Di", "wire index");
+	insert_bank_variable(\%configuration, $bankname, "tdc",         4,  "Di", "tdc value");
 	insert_bank_variable(\%configuration, $bankname, "LR",          5,  "Di", "Left/Right: -1 (right) if the track is between the beam and the closest wire");
 	insert_bank_variable(\%configuration, $bankname, "doca",        6,  "Dd", "2D distance between closest track step to the wire hit");
 	insert_bank_variable(\%configuration, $bankname, "sdoca",       7,  "Dd", "smeared doca");

@@ -1,6 +1,5 @@
 #!/usr/bin/perl -w
 
-
 use strict;
 use lib ("$ENV{GEMC}/api/perl");
 use utils;
@@ -33,13 +32,7 @@ if( scalar @ARGV != 1)
 # Loading configuration file and paramters
 our %configuration = load_configuration($ARGV[0]);
 
-# Global pars - these should be read by the load_parameters from file or DB
-#our %parameters = get_parameters(%configuration);
-
-system('groovy -cp "../coat-libs-2.0-SNAPSHOT.jar" factory.groovy');                                                                                        
-
-# Global pars - these should be read by the load_parameters from file or DB
-our @volumes = get_volumes(%configuration);
+system('groovy -cp "../*" factory.groovy');
 
 # materials
 require "./materials.pl";
@@ -50,18 +43,14 @@ require "./bank.pl";
 # hits definitions
 require "./hit.pl";
 
-# sensitive geometry
-#require "./geometry.pl";
-
 # read volumes from txt output of groovy script
-require "./volumes.pl";
-
-# calculate the parameters
-require "./utils.pl";
-
+require "./geometry_java.pl";
 
 # all the scripts must be run for every configuration
-my @allConfs = ("original");
+my @allConfs = ("original", "java");
+
+# bank definitions commong to all variations
+define_banks();
 
 foreach my $conf ( @allConfs )
 {
@@ -73,17 +62,35 @@ foreach my $conf ( @allConfs )
 	# hits
 	define_hit();
 	
-	# calculate pars
-	# calculate_ftof_parameters();
+	if($configuration{"variation"} eq "original")
+	{
+		# Global pars - these should be read by the load_parameters from file or DB
+		our %parameters = get_parameters(%configuration);
 
-	# bank definitions
-	define_banks();
-	
-	# geometry
-	# makeFTOF();
-	
-	# volumes
-	makeFTOF();
+		# calculate the parameters
+		require "./utils.pl";
+
+		# sensitive geometry
+		require "./geometry.pl";
+
+		# calculate pars
+		calculate_ftof_parameters();
+
+		# volumes
+		makeFTOF();
+
+		# make
+		make_pb();
+	}
+
+	if($configuration{"variation"} eq "java")
+	{
+		# Global pars - these should be read by the load_parameters from file or DB
+		our @volumes = get_volumes(%configuration);
+
+		coatjava::makeFTOF();
+		coatjava::make_pb();
+	}
 }
 
 

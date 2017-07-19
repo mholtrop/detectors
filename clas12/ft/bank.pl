@@ -25,14 +25,13 @@ sub define_trk_bank
 {
 	# uploading the hit definition
 	my $bankId   = 700;
-	my $bankname = "ftm";
+	my $bankname = "ft_trk";
 	
 	insert_bank_variable(\%configuration, $bankname, "bankid", $bankId, "Di", "$bankname bank ID");
-	insert_bank_variable(\%configuration, $bankname, "layer",        1, "Di", "layer number");
-	insert_bank_variable(\%configuration, $bankname, "sector",       2, "Di", "sector number");
-	insert_bank_variable(\%configuration, $bankname, "strip",        3, "Di", "strip number");
+    insert_bank_variable(\%configuration, $bankname, "sector",       1, "Di", "sector number");
+	insert_bank_variable(\%configuration, $bankname, "layer",        2, "Di", "layer number");
+	insert_bank_variable(\%configuration, $bankname, "component",    3, "Di", "component number");
 	insert_bank_variable(\%configuration, $bankname, "adc",          4, "Di", "adc");
-	insert_bank_variable(\%configuration, $bankname, "tdc",          5, "Di", "tdc");
 	insert_bank_variable(\%configuration, $bankname, "hitn",        99, "Di", "hit number");
 }
 
@@ -43,10 +42,11 @@ sub define_hodo_bank
 	my $bankname = "ft_hodo";
 	
 	insert_bank_variable(\%configuration, $bankname, "bankid", $bankId, "Di", "$bankname bank ID");
-	insert_bank_variable(\%configuration, $bankname, "id",           1, "Di", "id number");
+	insert_bank_variable(\%configuration, $bankname, "sector",       1, "Di", "sector number");
 	insert_bank_variable(\%configuration, $bankname, "layer",        2, "Di", "layer number");
-	insert_bank_variable(\%configuration, $bankname, "adc",          3, "Di", "adc");
-	insert_bank_variable(\%configuration, $bankname, "tdc",          4, "Di", "tdc");
+    insert_bank_variable(\%configuration, $bankname, "component",    3, "Di", "component number");
+	insert_bank_variable(\%configuration, $bankname, "adc",          4, "Di", "adc");
+	insert_bank_variable(\%configuration, $bankname, "tdc",          5, "Di", "tdc");
 	insert_bank_variable(\%configuration, $bankname, "hitn",        99, "Di", "hit number");
 }
 
@@ -58,10 +58,11 @@ sub define_cal_bank
 	my $bankname = "ft_cal";
 	
 	insert_bank_variable(\%configuration, $bankname, "bankid", $bankId, "Di", "$bankname bank ID");
-	insert_bank_variable(\%configuration, $bankname, "idx",          1, "Di", "idx number");
-	insert_bank_variable(\%configuration, $bankname, "idy",          2, "Di", "idy number");
-	insert_bank_variable(\%configuration, $bankname, "adc",          3, "Di", "adc");
-	insert_bank_variable(\%configuration, $bankname, "tdc",          4, "Di", "tdc");
+	insert_bank_variable(\%configuration, $bankname, "sector",       1, "Di", "sector number");
+	insert_bank_variable(\%configuration, $bankname, "layer",        2, "Di", "layer number");
+    insert_bank_variable(\%configuration, $bankname, "component",    3, "Di", "component number");
+	insert_bank_variable(\%configuration, $bankname, "adc",          4, "Di", "adc");
+	insert_bank_variable(\%configuration, $bankname, "tdc",          5, "Di", "tdc");
 	insert_bank_variable(\%configuration, $bankname, "hitn",        99, "Di", "hit number");
 }
 

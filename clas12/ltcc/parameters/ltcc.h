@@ -1,3 +1,6 @@
+#ifndef LTCC_PARAMETERS_LTCC_LOADED
+#define LTCC_PARAMETERS_LTCC_LOADED
+
 const double PI    = 3.141592654;
 const double alpha = 1.0/137.0;
 
@@ -46,19 +49,38 @@ double hwdh[NSEG];
 // where z is along the biggest axis of the ellips.
 double pwo[3][NSEG];
 // coordinates of WC window center.
-double wc0[3][NSEG];
+double wc0[3][NSEG]; // OLD - DEPRECATED
 // coordinates of PMT window center.
 double pmt0[3][NSEG];
-// WC max radius
-double wcr[NSEG];
+// WC max radius 
+double wcr[NSEG]; // OLD - DEPRECATED
 // pmt radius
 double pmtr[NSEG];
 // distance between two planes in WC.
-double dplwc[NSEG];
+double dplwc[NSEG]; // OLD - DEPRECATED
 // angle between this planes and Segment median plane.
 // PLANES ARE DEFINED as p(1)*x + p(2)*y + p(3)*z + 1.0 = 0
 double wcang[NSEG];
-
+// cylindrical mirror outer radius
+double cyl_r[NSEG];
+// shield half lengths (x,y,z)
+double shield[3][NSEG];
+// shield z-angle
+double shieldangz[NSEG];
+// shield shift in z direction
+double shields[NSEG];
+// cylindrical mirror (left) rotation around z
+double cyl_L[NSEG];
+// cylindrical mirror (right) rotation around z
+double cyl_R[NSEG];
+// pmt positions in sector
+double pmt_sec[3][NSEG];
+//shield positions in sector
+double shield_pos[6][NSEG];
+//mirror positions in sector
+double mirror_pos[6][NSEG];
+//wc positions in sector
+double wc_pos[6][NSEG];
 
 // refractive index of C4F10 is given by Sellmeier equation
 // (n-1) 10^6 = p1/(p2^-2 - lambda^-2)
@@ -118,5 +140,4 @@ TF1 *windowMore_nocut_nose;
 TF1 *windowMore_cut_nonose;
 TF1 *windowMore_cut_nose;
 
-
-
+#endif
