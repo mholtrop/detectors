@@ -1,0 +1,5 @@
+# Ignore compiled python files
+*.pyc
+# Ignore the output files and test files
+*.txt
+*.evio
