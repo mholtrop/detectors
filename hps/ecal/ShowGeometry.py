@@ -6,7 +6,7 @@ sys.path.append("..")
 try:
     import ROOT
 except:
-    print "It seems you do not have ROOT setup, or PyROOT is not enabled in your ROOT distribution. Sorry."
+    print("It seems you do not have ROOT setup, or PyROOT is not enabled in your ROOT distribution. Sorry.")
     sys.exit()
 
 from GeometryROOT import GeometryROOT
@@ -25,7 +25,5 @@ rr.Create_root_volume()
 rr.Build_volumes(gen)
 browse = ROOT.TBrowser()
 rr.Draw("ogl")
-print "You can now access the geometry through the ROOT browser, and with the 'rr' object."
-print "ROOT may cause Python to crash upon exit.... no worries, just annoying"
-
-
+print("You can now access the geometry through the ROOT browser, and with the 'rr' object.")
+print("ROOT may cause Python to crash upon exit.... no worries, just annoying")

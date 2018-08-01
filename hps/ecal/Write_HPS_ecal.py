@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 #
 # Author: Maurik Holtrop (UNH)
 # Date: June 2, 2011
@@ -46,9 +46,9 @@ Standard_Table_Name="hps_ecal"
 
 #################################################################################################
 #
-# Lots of Global parameters. 
+# Lots of Global parameters.
 #
-# This is kind of ugly, but also the most convenient way to control the geometry of the ECAL. 
+# This is kind of ugly, but also the most convenient way to control the geometry of the ECAL.
 #
 #################################################################################################
 
@@ -93,9 +93,9 @@ Vacuum_plate_material = 'StainlessSteel' # Aternative is 'StainlessSteel' or 'Al
 y_offset = 20.                 # mm Opening in Y of CRYSTALS. This determines the y location of the crystals.
 
 if Vacuum_gap_y + Vacuum_plate_thickness + Vacuum_foils_thickness > y_offset:
-    print "WARNING: Stack of material and vacuum gap is larger than crystal offset. "
+    print("WARNING: Stack of material and vacuum gap is larger than crystal offset. ")
     exit
-    
+
 #
 # Control Parameters for placement of the crystals
 #
@@ -228,47 +228,47 @@ cu_pipe_or = 0.4 #outer radius of cu cooling pipes
 # The AnaMagnet is at +450*mm, so it's pole face is at 450+500= 950*mm. The front face is then 25 cm from the ecal.
 #
 def print_parameters():
-        
-#
-    print "ff          = " + str(ff)
-    print "theta       = " + str(theta)
-    print "xcent_shift = " + str(xcent_shift)
-    print "ycent_shift = " + str(ycent_shift)
 
-    print "KEY Dimensions \n"
-    print "Box_start_z =  " + str(Box_Start_z)
-    print "z_location box center     = " + str(z_location)
-    print "z_location_crystal_front  = " + str(z_location_crystal_front)
-    print "x_location_crystal_front  = " + str(x_location_crystal_front)
-    print "y_offset (Opening crystals)=" + str(y_offset)
-    print ""
-    print "Below numbers are actual values in mm"
-    print "Vacuum gap                = " + str(Vacuum_gap_y * 2)
-    print "Angle to edge of crystal  = " + str(math.atan(y_offset / z_location_crystal_front))
-    print "Vacuum Plate_thickness    = " + str(Vacuum_plate_thickness)
-    print "Plate Material            = " + Vacuum_plate_material
-    print "Photon hole bore radius   = " + str(Photon_pipe_dy);
-    print "Electron hole bore radius = " + str(Electron_pipe_dy) + ", " + str(Electron_pipe_dx)
-    print "Electron hole bore outer  = " + str(Electron_pipe_dy2) + ", " + str(Electron_pipe_dx2)
-    print ""
-    
-    print "Electron pipe  angle      = " + str(Electron_pipe_angle)
-    print "Electron pipe  location   = " + str(Electron_pipe_loc)
-    print "Electron pipe2 angle      = " + str(Electron_pipe2_angle)
-    print "Electron pipe2 location   = " + str(Electron_pipe2_loc)
-    
-    print "Photon pipe angle         = " + str(Photon_pipe_angle)
-    print "Photon pipe location      = " + str(Photon_pipe_loc)
-    print ""
-    print "Vacuum bulge: "
-    print "Plate thickness           = " + str(Electron_pipe_dy2 - Electron_pipe_dy)
-    print ""
-    print ""
+#
+    print("ff          = " + str(ff))
+    print("theta       = " + str(theta))
+    print("xcent_shift = " + str(xcent_shift))
+    print("ycent_shift = " + str(ycent_shift))
+
+    print("KEY Dimensions \n")
+    print("Box_start_z =  " + str(Box_Start_z))
+    print("z_location box center     = " + str(z_location))
+    print("z_location_crystal_front  = " + str(z_location_crystal_front))
+    print("x_location_crystal_front  = " + str(x_location_crystal_front))
+    print("y_offset (Opening crystals)=" + str(y_offset))
+    print("")
+    print("Below numbers are actual values in mm")
+    print("Vacuum gap                = " + str(Vacuum_gap_y * 2))
+    print("Angle to edge of crystal  = " + str(math.atan(y_offset / z_location_crystal_front)))
+    print("Vacuum Plate_thickness    = " + str(Vacuum_plate_thickness))
+    print("Plate Material            = " + Vacuum_plate_material)
+    print("Photon hole bore radius   = " + str(Photon_pipe_dy));
+    print("Electron hole bore radius = " + str(Electron_pipe_dy) + ", " + str(Electron_pipe_dx))
+    print("Electron hole bore outer  = " + str(Electron_pipe_dy2) + ", " + str(Electron_pipe_dx2))
+    print("")
+
+    print("Electron pipe  angle      = " + str(Electron_pipe_angle))
+    print("Electron pipe  location   = " + str(Electron_pipe_loc))
+    print("Electron pipe2 angle      = " + str(Electron_pipe2_angle))
+    print("Electron pipe2 location   = " + str(Electron_pipe2_loc))
+
+    print("Photon pipe angle         = " + str(Photon_pipe_angle))
+    print("Photon pipe location      = " + str(Photon_pipe_loc))
+    print("")
+    print("Vacuum bulge: ")
+    print("Plate thickness           = " + str(Electron_pipe_dy2 - Electron_pipe_dy))
+    print("")
+    print("")
 
 
 
 def create_ecal_sensitive_detector():
-    """ Create the definitions for the ECAL sensitive volume. 
+    """ Create the definitions for the ECAL sensitive volume.
         This is used by calculate_ecal_geometry() to define the parameters for the sensitivity and identity of the crystals.
         A Sensitive_Detector object is returned and must be placed onto the GeometryEngine object."""
 #
@@ -294,19 +294,19 @@ def create_ecal_sensitive_detector():
     ecal_sens.add_bank_row("tdc","TDC value ",4,"Di")
     ecal_sens.add_bank_row("hitn","Hit number",99,"Di")
 
-    
+
     return(ecal_sens)
 
 def calculate_ecal_mother_geometry(g_en,origin=[0,0,0],mother="ps_field",style=0,visible=0):
     """Create the ecal mother volume, which is a simple box."""
-    
+
     if not isinstance(g_en,GeometryEngine):
-        print "ERROR, I expected a GeometryEngine object as argument to create_ecal_sensitive_detector."
+        print("ERROR, I expected a GeometryEngine object as argument to create_ecal_sensitive_detector.")
         return()
 
 
     g_en.add(geom = Geometry(
-                         name = "ECAL",
+                         name ="ECAL",
                          mother=mother,
                          description="ECAL mother volume",
                          pos=[origin[0],origin[1],z_location+origin[2]],
@@ -324,15 +324,15 @@ def calculate_ecal_mother_geometry(g_en,origin=[0,0,0],mother="ps_field",style=0
                          visible=visible
                          ))
 #
-    
+
 def calculate_ecal_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
     """ Calculate the geometry of the crystals of the ECAL.
         The crystals are placed in the ECAL mother volume, which must be created with calculate_ecal_mother_geometry(g_en) """
-    
+
     if not isinstance(g_en,GeometryEngine):
-        print "ERROR, I expected a GeometryEngine object as argument to create_ecal_sensitive_detector."
+        print("ERROR, I expected a GeometryEngine object as argument to create_ecal_sensitive_detector.")
         return()
-    
+
 ################################################################################
 #
 # Find or setup the sensitive detector components.
@@ -345,60 +345,51 @@ def calculate_ecal_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
         g_en.add_sensitivity(ecal_sens)
 
     ######################################################################################################
-    
-    def FindCrystalMinMax((x_mid, y_mid, z_mid, thtx, thty, thtz), updown=1, backfront=1, leftright= -1):
-        """Returns the x,y,z coordinates of the corner of a crystal. x,y,z,thtx,thty,thtz are coordinates and
-           rotations of the crystal.
-           Set updown=-1 for lower corner or updown=+1 for upper corner,
-           and backfront=-1 for the front, and +1 for back,
-           and leftright= 1 for left and -1 for right as seen from the front. So left is in +x direction!"""
-        #
-        # The center point of the end crystal of this row, without rotation in z, are found as:
-        #
-        # theta_mod_x = math.atan((crystal_back_half_width - crystal_front_half_width) / (2 * crystal_half_length))
-        # theta_mod_y = math.atan((crystal_back_half_height - crystal_front_half_height) / (2 * crystal_half_length))
-    
-        #
-        # Now find the upper and lower corner of the crystal.
-        #
-        # See Notebook for an explanation of the rotation.
-        #
+
+    def FindCrystalMinMax(coords, updown=1, backfront=1, leftright= -1):
+        """Returns the x,y,z coordinates of the corner of a crystal.
+           :param coords    =(x,y,z,thtx,thty,thtz) are coordinates and rotations of the crystal.
+           :param updown    Set updown=-1 for lower corner or updown=+1 for upper corner,
+           :param backfront and backfront=-1 for the front, and +1 for back,
+           :param leftright leftright= 1 for left and -1 for right as seen from the front. So left is in +x direction!
+        """
+        (x_mid, y_mid, z_mid, thtx, thty, thtz) = coords
         lvec = 0
         if backfront > 0:
             lvec = np.matrix((leftright * crystal_back_half_width, updown * crystal_back_half_height, crystal_half_length)).T
         else:
             lvec = np.matrix((leftright * crystal_front_half_width, updown * crystal_front_half_height, -crystal_half_length)).T
-    
+
         rot = Rotation().rotateG4XYZ((thtx, thty, thtz))
         lvec = rot * lvec
         lx = x_mid + lvec.item(0)
         ly = y_mid + lvec.item(1)
         lz = z_mid + lvec.item(2)
-    
+
         #  print "mid   (x,y,z)=(%6.4f,%6.4f,%6.4f)"%(x_mid,y_mid,z_mid)
         #  print "vec   (x,y,z)=(%6.4f,%6.4f,%6.4f)"%(lvec.item(0),lvec.item(1),lvec.item(2))
         #  print "point (x,y,z)=(%6.4f,%6.4f,%6.4f)"%(lx,ly,lz)
-    
+
         return(lx, ly, lz)
-    
+
     def CosineOddSum(n, tht):
         """Returns the sum of cosines: cos(tht)/cos(tht-tht) + 2*cos(tht)/cos(2*tht) + 2*cos(tht)/cos(4*tht) + ... + cos(tht)/cos( (2n)*tht)
         This formula comes from cos(tht)+sin(tht) tan(tht+alhpa) = cos(alpha)/cos(tht+alhpa). Here tht is the angle of the trapezoid face
         with respect to the vertical (or horizontal) line disecting the midpoint of the face, alpha is the flare out angle of the trapezoid
         and fw times this formula would be the length of the vertical line. See HPS Experiment Notebook 'Ecal Crystal Placement - NEW' page 41."""
-    
+
         cc = math.cos(tht)  # /cos(0) which is 1.
         for i in range(1, n + 1):
             cc = cc + 2 * math.cos(tht) / math.cos(2 * i * tht)
-    
+
         return(cc)
-    
-    
+
+
     def CrystalLocation(nx, ny):
         """Find the location of crystal number nx,ny for the first quadrand (+x,+y). Returns (x,y,z,thetax,thetay,thetaz)
         The crystals are placed so that the first crystal has a corner at (0,0,0) of the mother volume (verified graphically
         The PlaceCrystal(nx,ny,xsign,ysign) will then put the correct offset on the positions."""
-    
+
     # X-preferred stacking
     #
     # Rotate crystals so they sit on the x-y plane. Then rotate around y to place them side by side on this plane.
@@ -416,13 +407,13 @@ def calculate_ecal_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
         # Same for the small factors below.
         #
         thty = theta_mod_y * (2 * nx + 1)
-    
+
         x = (crystal_front_half_width + foils_thickness / 2) * CosineOddSum(nx, theta_mod_y * 1.001) * 1.001 + crystal_half_length * math.sin(thty)
         y = (crystal_front_half_width + crystal_back_half_width) / 2
         z = crystal_half_length * math.cos(thtx) * math.cos(thty)
-    
+
         rot = rot.rotateY(thty)
-    
+
         #
         # Now rotate the entire stack around the x axis and increase the y by the correct amount.
         #
@@ -440,29 +431,29 @@ def calculate_ecal_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
         x = pos.item(0)
         y = pos.item(1)
         z = pos.item(2)
-    
+
         if ny == 0:            # The first row needs the y_offset.
             y = y
         else:                  # All the next rows are referenced to the previous row.
             (mx, my, mz) = FindCrystalMinMax(CrystalLocation(max_x - 1, ny - 1), 1, 1, 1)
             y = y + my + spacing_foil_thickness / (math.cos(2 * ny * theta)) - mz * math.tan(2 * ny * theta)
-    
+
         (thtx, thty, thtz) = rot.GetG4XYZ()
-    
+
         x = x
-    
+
         return(x, y, z, thtx, thty, thtz)
-    
+
     def PlaceCrystal(nx, ny, lxsign, lysign):
         """ Compute the actual location of the crystal, including all the offsets and the correct quadrant. """
-    
+
         (lx, ly, lz, ltht_x, ltht_y, ltht_z) = CrystalLocation(nx, ny)
         lx = lxsign * (lx + x_gap_center) + x_location_crystal_front
         ly = lysign * (ly + y_offset)
         lz = lz + z_location_crystal_offset
         ltht_x = lysign * ltht_x
         ltht_y = lxsign * ltht_y
-    
+
         return(lx, ly, lz, ltht_x, ltht_y, ltht_z)
 
 ####################################################################################################################################
@@ -475,33 +466,33 @@ def calculate_ecal_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
 #
 # POS ranges over the 4 quadrants: (x,y) = ++, +-, --, -+
 #
-    
+
     for pos in range(4):
-    
+
         for ny in range(max_y):
-        
+
             if pos == 0 or pos == 3:
                 iny = ny + 1
                 ysign = 1
             else:
                 iny = -ny - 1
                 ysign = -1
-            
+
             for nx in range(max_x):
-            
+
                 n = pos * max_y * max_x + ny * max_x + nx
-            
+
                 if pos == 0 or pos == 1:
                     inx = nx + 1  # identity
                     xsign = 1
                 else:
                     inx = -nx  # identity
                     xsign = -1
-                
+
                 (crys_pos_x, crys_pos_y, crys_pos_z, crys_theta_x, crys_theta_y, crys_theta_z) = PlaceCrystal(nx, ny, xsign, ysign)
                 if Cut_Crystals and ny == 0 and inx >= CUT_CRYSTAL_MIN and inx <= CUT_CRYSTAL_MAX:  # Row 1 top and bottom, 8 hottest crystals
                     crys_pos_y = crys_pos_y + ysign * ((crystal_front_half_width + foils_thickness / 2) - 2 * tolerance) / 2
-                
+
                 if ((xsign + 1) / 2 + nx) % 2 == 0:  # Color and Trans: CCCCCCT  T=0 -> 5 (max transparency)
                     if ny % 2 == 0:
                         crys_col = crys_col1
@@ -512,17 +503,17 @@ def calculate_ecal_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                         crys_col = crys_col3
                     else:
                         crys_col = crys_col4
-            
+
                 c_fhh = crystal_front_half_height
                 c_bhh = crystal_back_half_height
-                
+
                 if Cut_Crystals==1 and ny == 0 and inx >= CUT_CRYSTAL_MIN and inx <= CUT_CRYSTAL_MAX:
 #                    print "Cutting crystals, are ya?"  # Row 1 top and bottom, 8 hottest crystals, cut in 1/2
                     c_fhh = crystal_front_half_height / 2
                     c_bhh = crystal_back_half_height / 2
-                
+
                 if not (Cut_Crystals == 2 and ny == 0 and inx >= CUT_CRYSTAL_MIN and inx <= CUT_CRYSTAL_MAX):
-                    
+
                     g_en.add(geom=Geometry(
                                          name="ECAL_" + str(n),
                                          mother="ECAL",
@@ -541,23 +532,23 @@ def calculate_ecal_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                                                      crystal_half_length
                                                   ],
                                          dims_units="mm",
-                                         material="Lead",
+                                         material="G4_PbWO4",
                                          sensitivity=ecal_sens.sensitivity(),
                                          hittype=ecal_sens.hitType(),
                                          identity=ecal_sens.identity(inx,iny),
                                          style=style
                                          ))
-                        
-                
+
+
                 count += 1
-    
+
 def calculate_ecal_box_geometry(g_en,origin=[0,0,0],mother="ECAL",style=0):
     """This calculates a box to go around the entire ECAL. It is obsolete and not compatible with the newer calculate_ecal_crystalbox_geometry """
 #
 # Sides
 #
     etol = 0.001 # Shim, to prevent overlaps.
-    
+
     pos=[(Box_Half_width_back+Box_Half_width_front)/2+Plate_side_thickness,0,-Box_Half_depth + Plate_depth]
     mpos=[x+y for (x,y) in zip(origin,pos)]
 
@@ -591,7 +582,7 @@ def calculate_ecal_box_geometry(g_en,origin=[0,0,0],mother="ECAL",style=0):
                       rot_units =["deg","deg","deg"],
                       col="CCCCFF",
                       g4type="Parallelepiped",
-                      dimensions=[Plate_side_thickness/2,Box_height/2-etol,Plate_depth-etol,0, 
+                      dimensions=[Plate_side_thickness/2,Box_height/2-etol,Plate_depth-etol,0,
                                   -math.atan((Box_Half_width_back-Box_Half_width_front)/(2*Plate_depth)),0],
                       dims_units=["mm","mm","mm","rad","rad","rad"],
                       material=Box_plate_material,
@@ -769,7 +760,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
 
     fl_visible=1
     fl_style=style
- 
+
     g_en.add(Geometry(
                       name="front_flange_box",
                       description="The Front Flange of ECAL vacuum system",
@@ -783,7 +774,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       dims_units=["mm","mm","mm"],
                       material="Component",
                       ))
- 
+
     g_en.add(Geometry(
                       name="front_chamber_trap",
                       description="Trapezoid cutout of ECAL front flange",
@@ -796,7 +787,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       dimensions=[30./2., -0.988, 0, 16/2., 331.198/2., 331.198/2., 0, 16/2., 334.064/2., 334.064/2., 0],
                       dims_units=["mm","deg","deg","mm","mm","mm","deg","mm","mm","mm","deg"],
                       material="Component"))
- 
+
     g_en.add(Geometry(
                       name="front_minus_chamber",
                       description="The Front Flange with chamber subtracted",
@@ -808,7 +799,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       g4type="Operation: front_flange_box - front_chamber_trap",
                       material="Component"
                       ))
- 
+
     g_en.add(Geometry(
                       name="front_egap_trap",
                       description="Trapezoid cutout of ECAL front flange",
@@ -821,7 +812,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       dimensions=[30./2, -4.796, 0, 52.66/2., 25.683/2., 25.683/2.,0.,52.66/2.,29.716/2.,29.716/2.,0],
                       dims_units=["mm","deg","deg","mm","mm","mm","deg","mm","mm","mm","deg"],
                       material="Component"))
- 
+
     g_en.add(Geometry(
                       name="front_minus_egap",
                       description="The Front Flange with egap subtracted",
@@ -833,7 +824,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       g4type="Operation: front_minus_photontube - front_egap_trap",
                       material="Component"
                       ))
- 
+
     g_en.add(Geometry(
                       name="flange_photontube_inside",
                       description="Tube cutout of ECAL front flange",
@@ -847,7 +838,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       dims_units=["mm","mm","mm"],
                       material="Component"
                       ))
- 
+
     g_en.add(Geometry(
                       name="front_minus_photontube",
                       description="The Front Flange with chamber and tube subtracted",
@@ -859,8 +850,8 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       g4type="Operation: front_minus_chamber - flange_photontube_inside",
                       material="Component"
                       ))
- 
- 
+
+
     g_en.add(Geometry(
                       name="flange_egap_inside_tube",
                       description="Tube cutout of ECAL front flange",
@@ -874,7 +865,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       dims_units=["mm","mm","mm"],
                       material="Component",
                       ))
- 
+
     g_en.add(Geometry(
                       name="front_minus_egapleft",
                       description="The Front Flange",
@@ -886,7 +877,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       g4type="Operation: front_minus_egap - flange_egap_inside_tube",
                       material="Component"
                       ))
- 
+
     g_en.add(Geometry(
                       name="flange_egap_inside_tube2",
                       description="Tube cutout of ECAL front flange",
@@ -900,7 +891,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       dims_units=["mm","mm","mm"],
                       material="Component",
                       ))
- 
+
     g_en.add(Geometry(
                       name="front_flange",
                       description="The Front Flange",
@@ -915,7 +906,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       style=fl_style,
                       visible=fl_visible
                       ))
- 
+
     g_en.add(Geometry(
                       name="back_flange_box",
                       description="The Back Flange of ECAL vacuum system",
@@ -929,7 +920,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       dims_units=["mm","mm","mm"],
                       material="Component",
                       ))
- 
+
     g_en.add(Geometry(
                       name="back_chamber_trap",
                       description="Trapezoid cutout of ECAL back flange",
@@ -942,7 +933,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       dimensions=[30/2., -0.988, 0, 16/2., 372.279/2., 372.279/2., 0, 16./2., 375.145/2, 375.145/ 2.,0],
                       dims_units=["mm","deg","deg","mm","mm","mm","deg","mm","mm","mm","deg"],
                       material="Component"))
- 
+
     g_en.add(Geometry(
                       name="back_minus_chamber",
                       description="The Back Flange",
@@ -954,8 +945,8 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       g4type="Operation: back_flange_box - back_chamber_trap",
                       material="Component",
                       ))
- 
- 
+
+
     g_en.add(Geometry(
                       name="flange_photontube_inside2",
                       description="Tube cutout of ECAL front flange 2",
@@ -969,7 +960,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       dims_units=["mm","mm","mm"],
                       material="Component"
                       ))
- 
+
     g_en.add(Geometry(
                       name="back_minus_photontube",
                       description="The Back Flange",
@@ -981,7 +972,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       g4type="Operation: back_minus_chamber - flange_photontube_inside2",
                       material="Component",
                       ))
- 
+
     g_en.add(Geometry(
                       name="back_egap_trap",
                       description="Trapezoid cutout of ECAL back flange",
@@ -994,7 +985,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       dimensions=[30./2., -4.796, 0, 52.66/2., 83.493/2., 83.493/2., 0, 52.66/2., 87.526/2., 87.526/2., 0],
                       dims_units=["mm","deg","deg","mm","mm","mm","deg","mm","mm","mm","deg"],
                       material="Component"))
- 
+
     g_en.add(Geometry(
                       name="back_minus_egap",
                       description="The Back Flange",
@@ -1006,7 +997,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       g4type="Operation: back_minus_photontube - back_egap_trap",
                       material="Component",
                       ))
- 
+
     g_en.add(Geometry(
                       name="flange_egap_inside_tube3",
                       description="Tube cutout of ECAL front flange",
@@ -1020,8 +1011,8 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       dims_units=["mm","mm","mm"],
                       material="Component",
                       ))
- 
- 
+
+
     g_en.add(Geometry(
                       name="back_minus_egapleft",
                       description="The Back Flange",
@@ -1033,7 +1024,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       g4type="Operation: back_minus_egap - flange_egap_inside_tube3",
                       material="Component",
                       ))
- 
+
     g_en.add(Geometry(
                       name="flange_egap_inside_tube4",
                       description="Tube cutout of ECAL front flange",
@@ -1047,7 +1038,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       dims_units=["mm","mm","mm"],
                       material="Component",
                       ))
- 
+
     g_en.add(Geometry(
                       name="back_flange",
                       description="The Back Flange",
@@ -1063,7 +1054,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       style=fl_style,
                       visible=fl_visible
                       ))
-    
+
     g_en.add(Geometry(
                       name="chamber_trap",
                       description="Trapezoid for ECAL vacuum chamber, slot part",
@@ -1090,7 +1081,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       dims_units="mm",
                       material="Component",
                       ))
- 
+
     g_en.add(Geometry(
                       name="chamber_trim1",
                       description="ECAL vacuum with thinner front top",
@@ -1102,7 +1093,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       g4type="Operation: chamber_trap - chamber_cutaway_box",
                       material="Component"
                       ))
- 
+
     g_en.add(Geometry(
                       name="chamber_cutaway_box2",
                       description="Ecal - box that makes front end thinner",
@@ -1116,7 +1107,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       dims_units="mm",
                       material="Component",
                       ))
- 
+
     g_en.add(Geometry(
                       name="chamber_trim2",
                       description="ECAL vacuum chamber with thinner front.",
@@ -1128,7 +1119,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       g4type="Operation: chamber_trim1 - chamber_cutaway_box2",
                       material="Component"
                       ))
-    
+
     g_en.add(Geometry(
                       name="photontube_outside",
                       description="Tube bump up of chamber",
@@ -1204,7 +1195,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       g4type="Operation: chamber_with_egap_upper + egap_outside_trap_lower",
                       material="Component"
                       ))
-  
+
     g_en.add(Geometry(
                       name="chamber_cutaway_box3",
                       description="Ecal - box that makes front end thinner",
@@ -1218,7 +1209,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                       dims_units="mm",
                       material="Component",
                       ))
-   
+
     g_en.add(Geometry(
                       name="chamber_with_egap_trimtop",
                       description="ECAL vacuum chamber with upper egap.",
@@ -1443,7 +1434,7 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
                         ))
 
     if Include_Honeycomb_block:
-        geo = Geometry( 
+        geo = Geometry(
             name='al_honeycomb',
             mother=mother,
             description='Al honeycomb in vacuum box for support',
@@ -1465,13 +1456,13 @@ def calculate_ecal_vacuum_geometry(g_en,origin=[0,0,0],mother="ECAL",style=1):
 #                       material='G4_Al',
 #                       style=1,
 #                       visible=1
- 
+
 
 ###############Crystal Box encasing ECal Crystals###############################
 def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
     """This creates the frames that hold the crystals, including the structures on the sides. """
 
-    geo = Geometry( 
+    geo = Geometry(
           name='ecal_box_outer1',
           mother=mother,
           description='Outer shell of rack holding crystals',
@@ -1486,7 +1477,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='ecal_box_inner1',
           mother=mother,
           description='Cut out inside for 1-5 stack',
@@ -1501,7 +1492,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='ecal_box_inner2',
           mother=mother,
           description='Cut out front of 1-5 crystal stack',
@@ -1516,7 +1507,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='ecal_box_minus_inner1',
           mother=mother,
           description='Cut out for 1-4 stack',
@@ -1531,7 +1522,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='ecal_box_minus_inner2',
           mother=mother,
           description='Cut out for 1-4 stack',
@@ -1546,7 +1537,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='ppd_0',
           mother=mother,
           description='Center ppd',
@@ -1561,7 +1552,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='ppd_1',
           mother=mother,
           description='1st ppd on right',
@@ -1576,7 +1567,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='ppd_2',
           mother=mother,
           description='2nd ppd on right',
@@ -1591,7 +1582,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='ppd_3',
           mother=mother,
           description='3rd ppd on right',
@@ -1606,7 +1597,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='ppd_4',
           mother=mother,
           description='4th ppd on right',
@@ -1621,7 +1612,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='ppd_5',
           mother=mother,
           description='5th ppd on right',
@@ -1636,7 +1627,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='ppd_6',
           mother=mother,
           description='1st ppd on left',
@@ -1651,7 +1642,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='ppd_7',
           mother=mother,
           description='2nd ppd on left',
@@ -1666,7 +1657,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='ppd_8',
           mother=mother,
           description='3rd ppd on left',
@@ -1681,7 +1672,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='ppd_9',
           mother=mother,
           description='4th ppd on left',
@@ -1696,7 +1687,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='ppd_10',
           mother=mother,
           description='5th ppd on left',
@@ -1711,7 +1702,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='box_with_ppd',
           mother=mother,
           description='Add ppd0 to box frame',
@@ -1726,7 +1717,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='box_with_ppd1',
           mother=mother,
           description='Add ppd1 to box frame',
@@ -1741,7 +1732,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='box_with_ppd2',
           mother=mother,
           description='Add ppd 2 to box frame',
@@ -1756,7 +1747,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='box_with_ppd3',
           mother=mother,
           description='Add ppd3 to box frame',
@@ -1771,7 +1762,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='box_with_ppd4',
           mother=mother,
           description='Add ppd4 to box frame',
@@ -1786,7 +1777,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='box_with_ppd5',
           mother=mother,
           description='Add ppd5 to box frame',
@@ -1801,7 +1792,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='box_with_ppd6',
           mother=mother,
           description='Add ppd6 to box frame',
@@ -1816,7 +1807,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='box_with_ppd7',
           mother=mother,
           description='Add ppd7 to box frame',
@@ -1831,7 +1822,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='box_with_ppd8',
           mother=mother,
           description='Add ppd8 to box frame',
@@ -1846,7 +1837,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='box_with_ppd9',
           mother=mother,
           description='Add ppd9 to box frame',
@@ -1861,7 +1852,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='layer_1_top',
           mother=mother,
           description='Adds ppd10 and makes layer 1',
@@ -1876,7 +1867,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='G4_Al')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='layer_2_top',
           mother=mother,
           description='Adds ppd10 and makes layer 2',
@@ -1891,7 +1882,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='G4_Al')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='layer_3_top',
           mother=mother,
           description='Adds ppd10 and makes layer 3',
@@ -1906,7 +1897,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='G4_Al')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='layer_4_top',
           mother=mother,
           description='Adds ppd10 and makes layer 4',
@@ -1921,7 +1912,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='G4_Al')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='layer_1_bottom',
           mother=mother,
           description='Adds ppd10 and makes layer 1',
@@ -1936,7 +1927,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='G4_Al')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='layer_2_bottom',
           mother=mother,
           description='Adds ppd10 and makes layer 2',
@@ -1951,7 +1942,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='G4_Al')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='layer_3_bottom',
           mother=mother,
           description='Adds ppd10 and makes layer 3',
@@ -1966,7 +1957,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='G4_Al')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='layer_4_bottom',
           mother=mother,
           description='Adds ppd10 and makes layer 4',
@@ -1981,7 +1972,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='G4_Al')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='ppd_left1',
           mother=mother,
           description='Bar along left of electron hole, front part',
@@ -1996,7 +1987,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='ppd_left2',
           mother=mother,
           description='Bar along left of electron hole, back part',
@@ -2012,7 +2003,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
     g_en.add(geo)
 
 
-    geo = Geometry( 
+    geo = Geometry(
           name='ppd_right',
           mother=mother,
           description='Bar along right of electron hole',
@@ -2027,7 +2018,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='layer_5a1_1',
           mother=mother,
           description='Adding left side of hole to 5th layer',
@@ -2042,7 +2033,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='layer_5a1',
           mother=mother,
           description='Adding left side of hole to 5th layer',
@@ -2057,7 +2048,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='electron_hole_left',
           mother=mother,
           description='Cut out on right to leave left side of 5th layer',
@@ -2072,7 +2063,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='layer_5a2',
           mother=mother,
           description='Remove right side of 5th layer',
@@ -2087,7 +2078,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='layer_5a3',
           mother=mother,
           description='Add ppd6 to left side of 5th layer',
@@ -2102,7 +2093,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='layer_5a4',
           mother=mother,
           description='Add ppd7 to left side of 5th layer',
@@ -2117,7 +2108,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='layer_5a5',
           mother=mother,
           description='Add ppd8 to left side of 5th layer',
@@ -2132,7 +2123,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='layer_5a6',
           mother=mother,
           description='Add ppd9 to left side of 5th layer',
@@ -2147,7 +2138,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='layer_5a7',
           mother=mother,
           description='Add ppd10 to left side of 5th layer',
@@ -2162,7 +2153,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='layer_5T_left',
           mother=mother,
           description='Add ppd0 to left side of 5th layer for top stack',
@@ -2177,7 +2168,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='G4_Al')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='layer_5B_left',
           mother=mother,
           description='Add ppd0 to left side of 5th layer for top stack',
@@ -2192,7 +2183,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='G4_Al')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='electron_hole_right',
           mother=mother,
           description='Hole to subtract on the left to leave right side',
@@ -2207,7 +2198,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='layer_5b1',
           mother=mother,
           description='Subtract hole on left to leave right side, 5th layer',
@@ -2222,7 +2213,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='layer_5b2',
           mother=mother,
           description='Add bar on right side of electron hole',
@@ -2237,7 +2228,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='layer_5b3',
           mother=mother,
           description='Add ppd3 to right side 5th layer',
@@ -2252,7 +2243,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='Component')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='layer_5b4',
           mother=mother,
           description='Add ppd4 to right side 5th layer',
@@ -2268,7 +2259,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
     g_en.add(geo)
 
 
-    geo = Geometry( 
+    geo = Geometry(
           name='layer_5T_right',
           mother=mother,
           description='Add ppd5 to right side 5th layer, make for bottom stack',
@@ -2283,7 +2274,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='G4_Al')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='layer_5B_right',
           mother=mother,
           description='Add ppd5 to right side 5th layer, make for bottom stack',
@@ -2298,7 +2289,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           material='G4_Al')
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='steel_bar',
           mother=mother,
           description='Steel Bar on bottom of right top stack',
@@ -2319,7 +2310,7 @@ def calculate_ecal_crystalbox_geometry(g_en,mother="ECAL",origin=[0,0,0]):
 ##################Copper Pipes###################################################
 def calculate_ecal_coolingsys_geometry(g_en,mother="ECAL",origin=[0,0,0]):
 
-    geo = Geometry( 
+    geo = Geometry(
           name='cu_Tpipe_inner_left',
           mother=mother,
           description='Copper pipe in electron hole, top inner left',
@@ -2331,11 +2322,11 @@ def calculate_ecal_coolingsys_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           g4type='Tube',
           dimensions=[cu_pipe_ir, cu_pipe_or, 10.05, 0.0, 360.0],
           dims_units=['cm', 'cm', 'cm', 'deg', 'deg'],
-          material='Copper',
+          material='G4_Cu',
           style=1)
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='cu_Tpipe_inner_right',
           mother=mother,
           description='Copper pipe in electron hole, top inner right',
@@ -2347,11 +2338,11 @@ def calculate_ecal_coolingsys_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           g4type='Tube',
           dimensions=[cu_pipe_ir, cu_pipe_or, 10.05, 0.0, 360.0],
           dims_units=['cm', 'cm', 'cm', 'deg', 'deg'],
-          material='Copper',
+          material='G4_Cu',
           style=1)
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='cu_Bpipe_inner_left',
           mother=mother,
           description='Copper pipe in electron hole, bottom inner left',
@@ -2363,11 +2354,11 @@ def calculate_ecal_coolingsys_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           g4type='Tube',
           dimensions=[cu_pipe_ir, cu_pipe_or, 10.05, 0.0, 360.0],
           dims_units=['cm', 'cm', 'cm', 'deg', 'deg'],
-          material='Copper',
+          material='G4_Cu',
           style=1)
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='cu_Bpipe_inner_right',
           mother=mother,
           description='Copper pipe in electron hole, bottom inner right',
@@ -2379,11 +2370,11 @@ def calculate_ecal_coolingsys_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           g4type='Tube',
           dimensions=[cu_pipe_ir, cu_pipe_or, 10.05, 0.0, 360.0],
           dims_units=['cm', 'cm', 'cm', 'deg', 'deg'],
-          material='Copper',
+          material='G4_Cu',
           style=1)
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='cu_Tpipe_outer_right1',
           mother=mother,
           description='Copper pipe in electron hole, top outer right1',
@@ -2395,11 +2386,11 @@ def calculate_ecal_coolingsys_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           g4type='EllipticalTube',
           dimensions=[0.5, 0.1, 10.0],
           dims_units=['cm', 'cm', 'cm'],
-          material='Copper',
+          material='G4_Cu',
           style=1)
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='cu_Tpipe_outer_right2',
           mother=mother,
           description='Copper pipe in electron hole, top outer right2',
@@ -2411,11 +2402,11 @@ def calculate_ecal_coolingsys_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           g4type='EllipticalTube',
           dimensions=[0.5, 0.1, 10.0],
           dims_units=['cm', 'cm', 'cm'],
-          material='Copper',
+          material='G4_Cu',
           style=1)
     g_en.add(geo)
-    
-    geo = Geometry( 
+
+    geo = Geometry(
           name='cu_Tpipe_outer_right3',
           mother=mother,
           description='Copper pipe in electron hole, top outer right3',
@@ -2427,11 +2418,11 @@ def calculate_ecal_coolingsys_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           g4type='Tube',
           dimensions=[cu_pipe_ir, cu_pipe_or, 4.0, 0.0, 360.0],
           dims_units=['cm', 'cm', 'cm', 'deg', 'deg'],
-          material='Copper',
+          material='G4_Cu',
           style=1)
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='cu_Bpipe_outer_right',
           mother=mother,
           description='Copper pipe in electron hole, bottom outer right',
@@ -2443,12 +2434,12 @@ def calculate_ecal_coolingsys_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           g4type='Tube',
           dimensions=[cu_pipe_ir, cu_pipe_or, 4.0, 0.0, 360.0],
           dims_units=['cm', 'cm', 'cm', 'deg', 'deg'],
-          material='Copper',
+          material='G4_Cu',
           style=1)
     g_en.add(geo)
 
 
-    geo = Geometry( 
+    geo = Geometry(
           name='cu_Bpipe_outer_right1',
           mother=mother,
           description='Copper pipe in electron hole, bottom outer right1',
@@ -2460,11 +2451,11 @@ def calculate_ecal_coolingsys_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           g4type='EllipticalTube',
           dimensions=[0.5, 0.1, 10.0],
           dims_units=['cm', 'cm', 'cm'],
-          material='Copper',
+          material='G4_Cu',
           style=1)
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='cu_Bpipe_outer_right2',
           mother=mother,
           description='Copper pipe in electron hole, bottom outer right2',
@@ -2476,11 +2467,11 @@ def calculate_ecal_coolingsys_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           g4type='EllipticalTube',
           dimensions=[0.5, 0.1, 10.0],
           dims_units=['cm', 'cm', 'cm'],
-          material='Copper',
+          material='G4_Cu',
           style=1)
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='al_pipe_across_top1',
           mother=mother,
           description='Aluminum pipe across top of ecal crystal front',
@@ -2496,7 +2487,7 @@ def calculate_ecal_coolingsys_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           style=1)
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='al_pipe_across_top2',
           mother=mother,
           description='Aluminum pipe across top of ecal crystal front2',
@@ -2512,7 +2503,7 @@ def calculate_ecal_coolingsys_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           style=1)
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='al_pipe_across_bottom1',
           mother=mother,
           description='Aluminum pipe across bottom of ecal crystal front',
@@ -2528,7 +2519,7 @@ def calculate_ecal_coolingsys_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           style=1)
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='al_pipe_across_bottom2',
           mother=mother,
           description='Aluminum pipe across top of ecal crystal bottom2',
@@ -2544,7 +2535,7 @@ def calculate_ecal_coolingsys_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           style=1)
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='cu_plate_top_left',
           mother=mother,
           description='copper plate under top left of crystal stucture',
@@ -2556,11 +2547,11 @@ def calculate_ecal_coolingsys_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           g4type='Parallelepiped',
           dimensions=[20.0, 0.05, 10.0, 0.0, 0.97, 0.0],
           dims_units=['cm', 'cm', 'cm', 'deg', 'deg', 'deg'],
-          material='Copper',
+          material='G4_Cu',
           style=1)
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='cu_plate_bottom_left',
           mother=mother,
           description='copper plate above bottom left of crystal stucture',
@@ -2572,11 +2563,11 @@ def calculate_ecal_coolingsys_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           g4type='Parallelepiped',
           dimensions=[20.0, 0.05, 10.0, 0.0, 0.97, 0.0],
           dims_units=['cm', 'cm', 'cm', 'deg', 'deg', 'deg'],
-          material='Copper',
+          material='G4_Cu',
           style=1)
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='cu_plate_top_right',
           mother=mother,
           description='copper plate under top right of crystal stucture',
@@ -2588,11 +2579,11 @@ def calculate_ecal_coolingsys_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           g4type='Parallelepiped',
           dimensions=[11, 0.05, 10.0, 0.0, 9.68, 180.0],
           dims_units=['cm', 'cm', 'cm', 'deg', 'deg', 'deg'],
-          material='Copper',
+          material='G4_Cu',
           style=1)
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='cu_plate_bottom_right',
           mother=mother,
           description='copper plate on bottom right of crystal stucture',
@@ -2604,11 +2595,11 @@ def calculate_ecal_coolingsys_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           g4type='Parallelepiped',
           dimensions=[11, 0.05, 10.0, 0.0, -9.68, 0.0],
           dims_units=['cm', 'cm', 'cm', 'deg', 'deg', 'deg'],
-          material='Copper',
+          material='G4_Cu',
           style=1)
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='cu_plate_top_middle',
           mother=mother,
           description='copper plate on top middle of crystal stucture',
@@ -2620,11 +2611,11 @@ def calculate_ecal_coolingsys_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           g4type='Trd',
           dimensions=[3.5, 4.9, 0.05, 0.05, 10.0],
           dims_units=['cm', 'cm', 'cm', 'cm', 'cm'],
-          material='Copper',
+          material='G4_Cu',
           style=1)
     g_en.add(geo)
 
-    geo = Geometry( 
+    geo = Geometry(
           name='cu_plate_bottom_middle',
           mother=mother,
           description='copper plate on bottom middle of crystal stucture',
@@ -2636,15 +2627,15 @@ def calculate_ecal_coolingsys_geometry(g_en,mother="ECAL",origin=[0,0,0]):
           g4type='Trd',
           dimensions=[3.5, 4.9, 0.05, 0.05, 10.0],
           dims_units=['cm', 'cm', 'cm', 'cm', 'cm'],
-          material='Copper',
+          material='G4_Cu',
           style=1)
 
     g_en.add(geo)
 
-    
+
 def calculate_ecal_flux(g_en,mother="ps_field",origin=[0,0,0]):
     """This creates a flux plane at the face of the ECal. """
-    g_en.add(Geometry( 
+    g_en.add(Geometry(
           name='ecal_plane',
           mother=mother,
           description='Ecal flux plane at face of ecal',
@@ -2663,7 +2654,7 @@ def calculate_ecal_flux(g_en,mother="ps_field",origin=[0,0,0]):
           hittype="flux",
           identity="id manual 150"
           ))
-    
+
 
 if __name__ == "__main__":
     ##############################################################################################
@@ -2680,7 +2671,7 @@ if __name__ == "__main__":
 #
     DB_host = "localhost"
     DB_name = "hps_2014"
-    DB_user = "myname"  
+    DB_user = "myname"
     DB_passwd = "mypassword"
 
     Detector = "hps_ecal"
@@ -2688,31 +2679,39 @@ if __name__ == "__main__":
 
     Variation= "original"
 
-    print "Recreating tables for "+Detector
+    print("Recreating tables for "+Detector)
     print_parameters()
 
-    method="TXT"
-    if sys.argv[0] == "TXT":
-        print "TXT Engine"
-    elif sys.argv[0] == "MySQL":
-        print "MySQL Engine"
-        method = "MySQL"
-                
+    if len(sys.argv)>1:
+        if sys.argv[1].upper() == "TXT":
+            print("TXT Engine")
+            method="TXT"
+        elif sys.argv[1].upper() == "MySQL":
+            print("MySQL Engine")
+            method = "MySQL"
+        elif sys.argv[1].upper() == "GDML":
+            print("Write GDML using ROOT")
+            method = "GDML"
+    else:
+        method="TXT"
+
     geo_en = GeometryEngine(Detector)
- 
+
 #    geo_en_vac = GeometryEngine(Detector_Vac)
- 
+
     geo_en_flux=0
 
-    Set_Global_Parameters()
+#    Set_Global_Parameters()
     calculate_ecal_mother_geometry(geo_en,mother="root")
-    calculate_ecal_geometry(geo_en)
+    if len(sys.argv)<=2 or sys.argv[2].upper() != "NOCRYSTALS":
+        calculate_ecal_geometry(geo_en)
     calculate_ecal_vacuum_geometry(geo_en)
     calculate_ecal_crystalbox_geometry(geo_en)
     calculate_ecal_coolingsys_geometry(geo_en)
-    calculate_ecal_flux(geo_en)
+    if method != "GDML":
+        calculate_ecal_flux(geo_en)
 
-    print "geo_en     length = ",len(geo_en._Geometry)
+    print("geo_en     length = ",len(geo_en._Geometry))
 #    print "geo_en_vac length = ",len(geo_en_vac._Geometry)
     #
     # Now write the tables to the MySQL database
@@ -2726,5 +2725,9 @@ if __name__ == "__main__":
     if method == "TXT":
         geo_en.TXT_Write(Variation)
 
-
-
+    if method == "GDML":
+        from GeometryROOT import GeometryROOT
+        rr = GeometryROOT()
+        rr.Create_root_volume()
+        rr.Build_volumes(geo_en)
+        rr._geom.Export("ecal_vacuum_and_enclosure.gdml")
